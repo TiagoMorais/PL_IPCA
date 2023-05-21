@@ -2,7 +2,7 @@ import ply.lex as plex
 
 
 class ArithLexer:
-    tokens= ("num")
+    tokens= ("num",)
     literals = ['*', '+', '(', ')', '-', ';']
     t_ignore = " "
 

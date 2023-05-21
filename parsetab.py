@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ESCREVE FIM SEPARADOR STRING comando : ESCREVE lista_strings FIMlista_strings : STRINGlista_strings : lista_strings SEPARADOR STRING'
+_lr_signature = "right=left+-left*ESCREVE FIM NUM SEPARADOR STRING VAR VARID initial : comando\n                    | assign\n                    | declare_var comando : ESCREVE lista_strings FIMlista_strings : lista_strings SEPARADOR E\n                         | lista_strings SEPARADOR NUM\n                         | lista_strings SEPARADOR STRING E : E '+' E  \n                | E '-' E \n                | E '*' E lista_strings : STRING\n                         | NUM\n                         | E E :  NUM   declare_var : VAR VARID FIM assign : VAR VARID '=' E FIM"
     
-_lr_action_items = {'ESCREVE':([0,],[2,]),'$end':([1,5,],[0,-1,]),'STRING':([2,6,],[4,7,]),'FIM':([3,4,7,],[5,-2,-3,]),'SEPARADOR':([3,4,7,],[6,-2,-3,]),}
+_lr_action_items = {'ESCREVE':([0,],[5,]),'VAR':([0,],[6,]),'$end':([1,2,3,4,12,18,27,],[0,-1,-2,-3,-4,-15,-16,]),'STRING':([5,13,],[10,21,]),'NUM':([5,13,14,15,16,17,],[9,20,23,23,23,23,]),'VARID':([6,],[11,]),'FIM':([7,8,9,10,11,19,20,21,22,23,24,25,26,],[12,-13,-12,-11,18,-5,-6,-7,-8,-14,-9,-10,27,]),'SEPARADOR':([7,8,9,10,19,20,21,22,23,24,25,],[13,-13,-12,-11,-5,-6,-7,-8,-14,-9,-10,]),'+':([8,9,19,20,22,23,24,25,26,],[14,-14,14,-14,-8,-14,-9,-10,14,]),'-':([8,9,19,20,22,23,24,25,26,],[15,-14,15,-14,-8,-14,-9,-10,15,]),'*':([8,9,19,20,22,23,24,25,26,],[16,-14,16,-14,16,-14,16,-10,16,]),'=':([11,],[17,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'comando':([0,],[1,]),'lista_strings':([2,],[3,]),}
+_lr_goto_items = {'initial':([0,],[1,]),'comando':([0,],[2,]),'assign':([0,],[3,]),'declare_var':([0,],[4,]),'lista_strings':([5,],[7,]),'E':([5,13,14,15,16,17,],[8,19,22,24,25,26,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,8 +26,21 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> comando","S'",1,None,None,None),
-  ('comando -> ESCREVE lista_strings FIM','comando',3,'p_comando_escreve','EscreveGrammar.py',25),
-  ('lista_strings -> STRING','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',35),
-  ('lista_strings -> lista_strings SEPARADOR STRING','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',39),
+  ("S' -> initial","S'",1,None,None,None),
+  ('initial -> comando','initial',1,'p_initial','EscreveGrammar.py',31),
+  ('initial -> assign','initial',1,'p_initial','EscreveGrammar.py',32),
+  ('initial -> declare_var','initial',1,'p_initial','EscreveGrammar.py',33),
+  ('comando -> ESCREVE lista_strings FIM','comando',3,'p_comando_escreve','EscreveGrammar.py',36),
+  ('lista_strings -> lista_strings SEPARADOR E','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',43),
+  ('lista_strings -> lista_strings SEPARADOR NUM','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',44),
+  ('lista_strings -> lista_strings SEPARADOR STRING','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',45),
+  ('E -> E + E','E',3,'p_expr_op','EscreveGrammar.py',50),
+  ('E -> E - E','E',3,'p_expr_op','EscreveGrammar.py',51),
+  ('E -> E * E','E',3,'p_expr_op','EscreveGrammar.py',52),
+  ('lista_strings -> STRING','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',64),
+  ('lista_strings -> NUM','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',65),
+  ('lista_strings -> E','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',66),
+  ('E -> NUM','E',1,'p_expr_num','EscreveGrammar.py',70),
+  ('declare_var -> VAR VARID FIM','declare_var',3,'p_create_var','EscreveGrammar.py',75),
+  ('assign -> VAR VARID = E FIM','assign',5,'p_assign_var','EscreveGrammar.py',81),
 ]

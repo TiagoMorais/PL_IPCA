@@ -1,14 +1,18 @@
 # arith.py
-from EscreveGrammar import EscreveGrammar
+from ArithGrammar2 import ArithGrammar
 
-ag = EscreveGrammar()
+ag = ArithGrammar()
 ag.build()
 
 exemplos = [ # exemplos a avaliar de forma independente... 
-            r'ESCREVE "ola", "mundo";',
+            r'1+1+5-9*2',
+            r'1-1',
+            r'2*2',
             ]
+
 for frase in exemplos:
-    EscreveGrammar.initSymbols()
+    print("\n")
+    ArithGrammar.initSymbols()
     #print(f"----------------------")
     #print(f"--- frase '{frase}'")
     res = ag.parse ( frase ) 

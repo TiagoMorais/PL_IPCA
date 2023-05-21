@@ -2,86 +2,386 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> comando
-Rule 1     comando -> ESCREVE lista_strings FIM
-Rule 2     lista_strings -> STRING
-Rule 3     lista_strings -> lista_strings SEPARADOR STRING
+Rule 0     S' -> initial
+Rule 1     initial -> comando
+Rule 2     initial -> assign
+Rule 3     initial -> declare_var
+Rule 4     comando -> ESCREVE lista_strings FIM
+Rule 5     lista_strings -> lista_strings SEPARADOR E
+Rule 6     lista_strings -> lista_strings SEPARADOR NUM
+Rule 7     lista_strings -> lista_strings SEPARADOR STRING
+Rule 8     E -> E + E
+Rule 9     E -> E - E
+Rule 10    E -> E * E
+Rule 11    lista_strings -> STRING
+Rule 12    lista_strings -> NUM
+Rule 13    lista_strings -> E
+Rule 14    E -> NUM
+Rule 15    declare_var -> VAR VARID FIM
+Rule 16    assign -> VAR VARID = E FIM
 
 Terminals, with rules where they appear
 
-ESCREVE              : 1
-FIM                  : 1
-SEPARADOR            : 3
-STRING               : 2 3
+*                    : 10
++                    : 8
+-                    : 9
+=                    : 16
+ESCREVE              : 4
+FIM                  : 4 15 16
+NUM                  : 6 12 14
+SEPARADOR            : 5 6 7
+STRING               : 7 11
+VAR                  : 15 16
+VARID                : 15 16
 error                : 
 
 Nonterminals, with rules where they appear
 
-comando              : 0
-lista_strings        : 1 3
+E                    : 5 8 8 9 9 10 10 13 16
+assign               : 2
+comando              : 1
+declare_var          : 3
+initial              : 0
+lista_strings        : 4 5 6 7
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . comando
-    (1) comando -> . ESCREVE lista_strings FIM
+    (0) S' -> . initial
+    (1) initial -> . comando
+    (2) initial -> . assign
+    (3) initial -> . declare_var
+    (4) comando -> . ESCREVE lista_strings FIM
+    (16) assign -> . VAR VARID = E FIM
+    (15) declare_var -> . VAR VARID FIM
 
-    ESCREVE         shift and go to state 2
+    ESCREVE         shift and go to state 5
+    VAR             shift and go to state 6
 
-    comando                        shift and go to state 1
+    initial                        shift and go to state 1
+    comando                        shift and go to state 2
+    assign                         shift and go to state 3
+    declare_var                    shift and go to state 4
 
 state 1
 
-    (0) S' -> comando .
+    (0) S' -> initial .
 
 
 
 state 2
 
-    (1) comando -> ESCREVE . lista_strings FIM
-    (2) lista_strings -> . STRING
-    (3) lista_strings -> . lista_strings SEPARADOR STRING
+    (1) initial -> comando .
 
-    STRING          shift and go to state 4
+    $end            reduce using rule 1 (initial -> comando .)
 
-    lista_strings                  shift and go to state 3
 
 state 3
 
-    (1) comando -> ESCREVE lista_strings . FIM
-    (3) lista_strings -> lista_strings . SEPARADOR STRING
+    (2) initial -> assign .
 
-    FIM             shift and go to state 5
-    SEPARADOR       shift and go to state 6
+    $end            reduce using rule 2 (initial -> assign .)
 
 
 state 4
 
-    (2) lista_strings -> STRING .
+    (3) initial -> declare_var .
 
-    FIM             reduce using rule 2 (lista_strings -> STRING .)
-    SEPARADOR       reduce using rule 2 (lista_strings -> STRING .)
+    $end            reduce using rule 3 (initial -> declare_var .)
 
 
 state 5
 
-    (1) comando -> ESCREVE lista_strings FIM .
+    (4) comando -> ESCREVE . lista_strings FIM
+    (5) lista_strings -> . lista_strings SEPARADOR E
+    (6) lista_strings -> . lista_strings SEPARADOR NUM
+    (7) lista_strings -> . lista_strings SEPARADOR STRING
+    (11) lista_strings -> . STRING
+    (12) lista_strings -> . NUM
+    (13) lista_strings -> . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (14) E -> . NUM
 
-    $end            reduce using rule 1 (comando -> ESCREVE lista_strings FIM .)
+    STRING          shift and go to state 10
+    NUM             shift and go to state 9
 
+    lista_strings                  shift and go to state 7
+    E                              shift and go to state 8
 
 state 6
 
-    (3) lista_strings -> lista_strings SEPARADOR . STRING
+    (16) assign -> VAR . VARID = E FIM
+    (15) declare_var -> VAR . VARID FIM
 
-    STRING          shift and go to state 7
+    VARID           shift and go to state 11
 
 
 state 7
 
-    (3) lista_strings -> lista_strings SEPARADOR STRING .
+    (4) comando -> ESCREVE lista_strings . FIM
+    (5) lista_strings -> lista_strings . SEPARADOR E
+    (6) lista_strings -> lista_strings . SEPARADOR NUM
+    (7) lista_strings -> lista_strings . SEPARADOR STRING
 
-    FIM             reduce using rule 3 (lista_strings -> lista_strings SEPARADOR STRING .)
-    SEPARADOR       reduce using rule 3 (lista_strings -> lista_strings SEPARADOR STRING .)
+    FIM             shift and go to state 12
+    SEPARADOR       shift and go to state 13
 
+
+state 8
+
+    (13) lista_strings -> E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+
+    FIM             reduce using rule 13 (lista_strings -> E .)
+    SEPARADOR       reduce using rule 13 (lista_strings -> E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+
+
+state 9
+
+    (12) lista_strings -> NUM .
+    (14) E -> NUM .
+
+  ! reduce/reduce conflict for FIM resolved using rule 12 (lista_strings -> NUM .)
+  ! reduce/reduce conflict for SEPARADOR resolved using rule 12 (lista_strings -> NUM .)
+    FIM             reduce using rule 12 (lista_strings -> NUM .)
+    SEPARADOR       reduce using rule 12 (lista_strings -> NUM .)
+    +               reduce using rule 14 (E -> NUM .)
+    -               reduce using rule 14 (E -> NUM .)
+    *               reduce using rule 14 (E -> NUM .)
+
+  ! FIM             [ reduce using rule 14 (E -> NUM .) ]
+  ! SEPARADOR       [ reduce using rule 14 (E -> NUM .) ]
+
+
+state 10
+
+    (11) lista_strings -> STRING .
+
+    FIM             reduce using rule 11 (lista_strings -> STRING .)
+    SEPARADOR       reduce using rule 11 (lista_strings -> STRING .)
+
+
+state 11
+
+    (16) assign -> VAR VARID . = E FIM
+    (15) declare_var -> VAR VARID . FIM
+
+    =               shift and go to state 17
+    FIM             shift and go to state 18
+
+
+state 12
+
+    (4) comando -> ESCREVE lista_strings FIM .
+
+    $end            reduce using rule 4 (comando -> ESCREVE lista_strings FIM .)
+
+
+state 13
+
+    (5) lista_strings -> lista_strings SEPARADOR . E
+    (6) lista_strings -> lista_strings SEPARADOR . NUM
+    (7) lista_strings -> lista_strings SEPARADOR . STRING
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (14) E -> . NUM
+
+    NUM             shift and go to state 20
+    STRING          shift and go to state 21
+
+    E                              shift and go to state 19
+
+state 14
+
+    (8) E -> E + . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (14) E -> . NUM
+
+    NUM             shift and go to state 23
+
+    E                              shift and go to state 22
+
+state 15
+
+    (9) E -> E - . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (14) E -> . NUM
+
+    NUM             shift and go to state 23
+
+    E                              shift and go to state 24
+
+state 16
+
+    (10) E -> E * . E
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (14) E -> . NUM
+
+    NUM             shift and go to state 23
+
+    E                              shift and go to state 25
+
+state 17
+
+    (16) assign -> VAR VARID = . E FIM
+    (8) E -> . E + E
+    (9) E -> . E - E
+    (10) E -> . E * E
+    (14) E -> . NUM
+
+    NUM             shift and go to state 23
+
+    E                              shift and go to state 26
+
+state 18
+
+    (15) declare_var -> VAR VARID FIM .
+
+    $end            reduce using rule 15 (declare_var -> VAR VARID FIM .)
+
+
+state 19
+
+    (5) lista_strings -> lista_strings SEPARADOR E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+
+    FIM             reduce using rule 5 (lista_strings -> lista_strings SEPARADOR E .)
+    SEPARADOR       reduce using rule 5 (lista_strings -> lista_strings SEPARADOR E .)
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+
+
+state 20
+
+    (6) lista_strings -> lista_strings SEPARADOR NUM .
+    (14) E -> NUM .
+
+  ! reduce/reduce conflict for FIM resolved using rule 6 (lista_strings -> lista_strings SEPARADOR NUM .)
+  ! reduce/reduce conflict for SEPARADOR resolved using rule 6 (lista_strings -> lista_strings SEPARADOR NUM .)
+    FIM             reduce using rule 6 (lista_strings -> lista_strings SEPARADOR NUM .)
+    SEPARADOR       reduce using rule 6 (lista_strings -> lista_strings SEPARADOR NUM .)
+    +               reduce using rule 14 (E -> NUM .)
+    -               reduce using rule 14 (E -> NUM .)
+    *               reduce using rule 14 (E -> NUM .)
+
+  ! FIM             [ reduce using rule 14 (E -> NUM .) ]
+  ! SEPARADOR       [ reduce using rule 14 (E -> NUM .) ]
+
+
+state 21
+
+    (7) lista_strings -> lista_strings SEPARADOR STRING .
+
+    FIM             reduce using rule 7 (lista_strings -> lista_strings SEPARADOR STRING .)
+    SEPARADOR       reduce using rule 7 (lista_strings -> lista_strings SEPARADOR STRING .)
+
+
+state 22
+
+    (8) E -> E + E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+
+    +               reduce using rule 8 (E -> E + E .)
+    -               reduce using rule 8 (E -> E + E .)
+    FIM             reduce using rule 8 (E -> E + E .)
+    SEPARADOR       reduce using rule 8 (E -> E + E .)
+    *               shift and go to state 16
+
+  ! *               [ reduce using rule 8 (E -> E + E .) ]
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+
+
+state 23
+
+    (14) E -> NUM .
+
+    +               reduce using rule 14 (E -> NUM .)
+    -               reduce using rule 14 (E -> NUM .)
+    *               reduce using rule 14 (E -> NUM .)
+    FIM             reduce using rule 14 (E -> NUM .)
+    SEPARADOR       reduce using rule 14 (E -> NUM .)
+
+
+state 24
+
+    (9) E -> E - E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+
+    +               reduce using rule 9 (E -> E - E .)
+    -               reduce using rule 9 (E -> E - E .)
+    FIM             reduce using rule 9 (E -> E - E .)
+    SEPARADOR       reduce using rule 9 (E -> E - E .)
+    *               shift and go to state 16
+
+  ! *               [ reduce using rule 9 (E -> E - E .) ]
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+
+
+state 25
+
+    (10) E -> E * E .
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+
+    +               reduce using rule 10 (E -> E * E .)
+    -               reduce using rule 10 (E -> E * E .)
+    *               reduce using rule 10 (E -> E * E .)
+    FIM             reduce using rule 10 (E -> E * E .)
+    SEPARADOR       reduce using rule 10 (E -> E * E .)
+
+  ! +               [ shift and go to state 14 ]
+  ! -               [ shift and go to state 15 ]
+  ! *               [ shift and go to state 16 ]
+
+
+state 26
+
+    (16) assign -> VAR VARID = E . FIM
+    (8) E -> E . + E
+    (9) E -> E . - E
+    (10) E -> E . * E
+
+    FIM             shift and go to state 27
+    +               shift and go to state 14
+    -               shift and go to state 15
+    *               shift and go to state 16
+
+
+state 27
+
+    (16) assign -> VAR VARID = E FIM .
+
+    $end            reduce using rule 16 (assign -> VAR VARID = E FIM .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: reduce/reduce conflict in state 9 resolved using rule (lista_strings -> NUM)
+WARNING: rejected rule (E -> NUM) in state 9
+WARNING: reduce/reduce conflict in state 20 resolved using rule (lista_strings -> lista_strings SEPARADOR NUM)
+WARNING: rejected rule (E -> NUM) in state 20

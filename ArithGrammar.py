@@ -53,7 +53,7 @@ class ArithGrammar:
         #  E:=20 
         #            symbols["E"]=20         # { E: 20}
         #            symbols[ p[1] ]= p[3]
-        ArithGrammar.symbols[ p[1] ]= p[3]    
+        self.symbols[ p[1] ] = p[3]    
         print(f"info: variável '{p[1]}' fica com o valor {p[3]}")
         p[0]=dict(op='assign',args= [ p[1] , p[3]] )
               
