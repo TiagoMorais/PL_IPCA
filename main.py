@@ -15,8 +15,9 @@ exemplos = [ # exemplos a avaliar de forma independente...
             ]
 
 for frase in exemplos:
+    #EscreveGrammar.initSymbols()
     print("\n")
-    EscreveGrammar.initSymbols()
+    
     #print(f"----------------------")
     #print(f"--- frase '{frase}'")
     res = ag.parse ( frase ) 

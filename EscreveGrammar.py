@@ -31,27 +31,8 @@ class EscreveGrammar:
         """ initial : comando
                     | assign
                     | declare_var"""
-
-    # TODO
-    # def p_expr_listvar(self,p):
-    #     """ LstV :  LstV ';' V 
-    #              | V """
-    #     print("--------------\n-- symbols: ")
-    #     print(EscreveGrammar.symbols )
-    #     print("-------------- ")
-
-    # def p_expr_atrib(self,p):
-    #     """ V : VARID VAR E """
-    #     #""" V : VARID assign E
-    #     #      | VARI assign num """   # conflito reduce/reduce
-    #     # print(f"{p[3]}")
-    #     #  E:=20 
-    #     #            symbols["E"]=20         # { E: 20}
-    #     #            symbols[ p[1] ]= p[3]
-    #     EscreveGrammar.symbols[ p[1] ]= p[3]    
-    #     print(f"info: variável '{p[1]}' fica com o valor {p[3]}")
-    #     p[0]=dict(op='VAR',args= [ p[1] , p[3]] )
-
+        print(EscreveGrammar.symbols)
+    
     def p_comando_escreve(self, p):
         """ comando : ESCREVE lista_strings FIM"""
         for t in p[2]:
