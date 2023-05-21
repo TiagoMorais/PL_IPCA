@@ -1,6 +1,6 @@
 from EscreveLexer import EscreveLexer
 import ply.yacc as pyacc
-
+import re
 
 class EscreveGrammar:
     precedence = (
@@ -90,6 +90,27 @@ class EscreveGrammar:
         else:
             print(EscreveGrammar.symbols)
             raise Exception(f"error: '{p[1]}' undeclared (first use in this function)")
+
+    def p_ciclos(self,p):
+        """ initial : PARA VARID EM RANGE FAZER INST FIMPARA FIM """
+        for x in p:
+            print(x)
+        # Expressão regular para encontrar os inteiros dentro dos colchetes
+        pattern = r'\[(\d+)\.\.(\d+)\]'
+
+        # Aplica a expressão regular na string
+        matches = re.search(pattern, p[4])
+        if matches:
+        # Obtém os dois inteiros encontrados
+            inicio = int(matches.group(1))
+            fim = int(matches.group(2))
+            print(inicio,fim,p[6])
+        else :
+            raise Exception(f"error: range invalid syntax")
+        EscreveGrammar.symbols[p[2]]=inicio
+        
+    def p_inst(self,p):
+        """ INST : initial """
 
     #ASSIGN 
     def p_create_var(self, p):

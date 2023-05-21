@@ -4,10 +4,30 @@ import ply.lex as plex
 class EscreveLexer:
     tokens = ("ESCREVE", "STRING", "FIM", "SEPARADOR",
               "NUM", "VAR", "VARID", 
-              "PARA", "EM", "FAZER", "PARAFIM", "INSTRUCAO")
+              "PARA", "EM", "FAZER", "FIMPARA", "RANGE")
     literals = ['*', '+', '(', ')', '-', ';', '=']
     t_ignore = ' \t\n'  # Ignora espaços em branco e quebras de linha
 
+    def t_PARA(self,t):
+        r'PARA'
+        return t
+    
+    def t_EM(self,t):
+        r'EM'
+        return t
+    
+    def t_RANGE(self,t):
+        r'\[[0-9]+\.\.[0-9]+\]'
+        return t
+    
+    def t_FAZER(self,t):
+        r'FAZER'
+        return t
+    
+    def t_FIMPARA(self,t):
+        r'FIMPARA'
+        return t
+    
     def __init__(self):
         self.lexer = None
 
@@ -40,7 +60,7 @@ class EscreveLexer:
     def t_SEPARADOR(self, t):
         r','
         return t
-    
+        
     def build(self, **kwargs):
         self.lexer = plex.lex(module=self, **kwargs)
 

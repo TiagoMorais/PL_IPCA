@@ -5,13 +5,14 @@ ag = EscreveGrammar()
 ag.build()
 
 exemplos = [ # exemplos a avaliar de forma independente... 
-            r'ESCREVE "ola", "mundo";',
-            r'ESCREVE "ola", 1+1 ;',
-            r'ESCREVE "ola", 1 ,"mundo";',
-            r'VAR h ; ',
-            r'VAR h = 1+5; ',
-            r'VAR y = 10 * (h - 1) ; ',
-            r'VAR z = -1 ; ',
+            # r'ESCREVE "ola", "mundo";',
+            # r'ESCREVE "ola", 1+1 ;',
+            # r'ESCREVE "ola", 1 ,"mundo";',
+            # r'VAR h ; ',
+            # r'VAR h = 1+5; ',
+            # r'VAR y = 10 * (h - 1) ; ',
+            # r'VAR z = -1 ; ',
+            r'PARA i EM [10..20] FAZER ESCREVE "ola"; FIMPARA ;'
             ]
 
 for frase in exemplos:

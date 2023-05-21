@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "right=left+-left*rightsimetricoEM ESCREVE FAZER FIM INSTRUCAO NUM PARA PARAFIM SEPARADOR STRING VAR VARID initial : comando\n                    | assign\n                    | declare_var V : VARID '=' E  comando : ESCREVE lista_strings FIMlista_strings : lista_strings SEPARADOR E\n                         | lista_strings SEPARADOR NUM\n                         | lista_strings SEPARADOR STRING E : E '+' E  \n                | E '-' E \n                | E '*' E      lista_strings : STRING\n                         | NUM\n                         | E E : '-' E   %prec simetrico  E : '(' E ')'  E :  NUM   E :  VARID   declare_var : VAR VARID FIM assign : VAR VARID '=' E FIM"
+_lr_signature = "right=left+-left*rightsimetricoEM ESCREVE FAZER FIM FIMPARA NUM PARA RANGE SEPARADOR STRING VAR VARID initial : comando\n                    | assign\n                    | declare_var comando : ESCREVE lista_strings FIMlista_strings : lista_strings SEPARADOR E\n                         | lista_strings SEPARADOR NUM\n                         | lista_strings SEPARADOR STRING E : E '+' E  \n                | E '-' E \n                | E '*' E      lista_strings : STRING\n                         | NUM\n                         | E E : '-' E   %prec simetrico  E : '(' E ')'  E :  NUM   E :  VARID   initial : PARA VARID EM RANGE FAZER INST FIMPARA FIM  INST : initial  declare_var : VAR VARID FIM assign : VAR VARID '=' E FIM"
     
-_lr_action_items = {'ESCREVE':([0,],[5,]),'VAR':([0,],[6,]),'$end':([1,2,3,4,15,24,33,],[0,-1,-2,-3,-5,-19,-20,]),'STRING':([5,16,],[10,27,]),'NUM':([5,11,12,16,17,18,19,23,],[9,21,21,26,21,21,21,21,]),'-':([5,8,9,11,12,13,16,17,18,19,20,21,22,23,25,26,28,29,30,31,32,],[11,18,-17,11,11,-18,11,11,11,11,-15,-17,18,11,18,-17,-9,-10,-11,-16,18,]),'(':([5,11,12,16,17,18,19,23,],[12,12,12,12,12,12,12,12,]),'VARID':([5,6,11,12,16,17,18,19,23,],[13,14,13,13,13,13,13,13,13,]),'FIM':([7,8,9,10,13,14,20,21,25,26,27,28,29,30,31,32,],[15,-14,-13,-12,-18,24,-15,-17,-6,-7,-8,-9,-10,-11,-16,33,]),'SEPARADOR':([7,8,9,10,13,20,21,25,26,27,28,29,30,31,],[16,-14,-13,-12,-18,-15,-17,-6,-7,-8,-9,-10,-11,-16,]),'+':([8,9,13,20,21,22,25,26,28,29,30,31,32,],[17,-17,-18,-15,-17,17,17,-17,-9,-10,-11,-16,17,]),'*':([8,9,13,20,21,22,25,26,28,29,30,31,32,],[19,-17,-18,-15,-17,19,19,-17,19,19,-11,-16,19,]),')':([13,20,21,22,28,29,30,31,],[-18,-15,-17,31,-9,-10,-11,-16,]),'=':([14,],[23,]),}
+_lr_action_items = {'PARA':([0,37,],[5,5,]),'ESCREVE':([0,37,],[6,6,]),'VAR':([0,37,],[7,7,]),'$end':([1,2,3,4,18,27,38,42,],[0,-1,-2,-3,-4,-20,-21,-18,]),'FIMPARA':([2,3,4,18,27,38,39,40,42,],[-1,-2,-3,-4,-20,-21,41,-19,-18,]),'VARID':([5,6,7,13,14,19,20,21,22,26,],[8,15,16,15,15,15,15,15,15,15,]),'STRING':([6,19,],[12,31,]),'NUM':([6,13,14,19,20,21,22,26,],[11,24,24,30,24,24,24,24,]),'-':([6,10,11,13,14,15,19,20,21,22,23,24,25,26,29,30,32,33,34,35,36,],[13,21,-16,13,13,-17,13,13,13,13,-14,-16,21,13,21,-16,-8,-9,-10,-15,21,]),'(':([6,13,14,19,20,21,22,26,],[14,14,14,14,14,14,14,14,]),'EM':([8,],[17,]),'FIM':([9,10,11,12,15,16,23,24,29,30,31,32,33,34,35,36,41,],[18,-13,-12,-11,-17,27,-14,-16,-5,-6,-7,-8,-9,-10,-15,38,42,]),'SEPARADOR':([9,10,11,12,15,23,24,29,30,31,32,33,34,35,],[19,-13,-12,-11,-17,-14,-16,-5,-6,-7,-8,-9,-10,-15,]),'+':([10,11,15,23,24,25,29,30,32,33,34,35,36,],[20,-16,-17,-14,-16,20,20,-16,-8,-9,-10,-15,20,]),'*':([10,11,15,23,24,25,29,30,32,33,34,35,36,],[22,-16,-17,-14,-16,22,22,-16,22,22,-10,-15,22,]),')':([15,23,24,25,32,33,34,35,],[-17,-14,-16,35,-8,-9,-10,-15,]),'=':([16,],[26,]),'RANGE':([17,],[28,]),'FAZER':([28,],[37,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'initial':([0,],[1,]),'comando':([0,],[2,]),'assign':([0,],[3,]),'declare_var':([0,],[4,]),'lista_strings':([5,],[7,]),'E':([5,11,12,16,17,18,19,23,],[8,20,22,25,28,29,30,32,]),}
+_lr_goto_items = {'initial':([0,37,],[1,40,]),'comando':([0,37,],[2,2,]),'assign':([0,37,],[3,3,]),'declare_var':([0,37,],[4,4,]),'lista_strings':([6,],[9,]),'E':([6,13,14,19,20,21,22,26,],[10,23,25,29,32,33,34,36,]),'INST':([37,],[39,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -30,21 +30,22 @@ _lr_productions = [
   ('initial -> comando','initial',1,'p_initial','EscreveGrammar.py',31),
   ('initial -> assign','initial',1,'p_initial','EscreveGrammar.py',32),
   ('initial -> declare_var','initial',1,'p_initial','EscreveGrammar.py',33),
-  ('V -> VARID = E','V',3,'p_expr_atrib','EscreveGrammar.py',38),
-  ('comando -> ESCREVE lista_strings FIM','comando',3,'p_comando_escreve','EscreveGrammar.py',50),
-  ('lista_strings -> lista_strings SEPARADOR E','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',57),
-  ('lista_strings -> lista_strings SEPARADOR NUM','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',58),
-  ('lista_strings -> lista_strings SEPARADOR STRING','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',59),
-  ('E -> E + E','E',3,'p_expr_op','EscreveGrammar.py',64),
-  ('E -> E - E','E',3,'p_expr_op','EscreveGrammar.py',65),
-  ('E -> E * E','E',3,'p_expr_op','EscreveGrammar.py',66),
-  ('lista_strings -> STRING','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',78),
-  ('lista_strings -> NUM','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',79),
-  ('lista_strings -> E','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',80),
-  ('E -> - E','E',2,'p_expr_sinalmenos','EscreveGrammar.py',84),
-  ('E -> ( E )','E',3,'p_expr_pare','EscreveGrammar.py',88),
-  ('E -> NUM','E',1,'p_expr_num','EscreveGrammar.py',94),
-  ('E -> VARID','E',1,'p_expr_var','EscreveGrammar.py',98),
-  ('declare_var -> VAR VARID FIM','declare_var',3,'p_create_var','EscreveGrammar.py',109),
-  ('assign -> VAR VARID = E FIM','assign',5,'p_assign_var','EscreveGrammar.py',114),
+  ('comando -> ESCREVE lista_strings FIM','comando',3,'p_comando_escreve','EscreveGrammar.py',37),
+  ('lista_strings -> lista_strings SEPARADOR E','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',44),
+  ('lista_strings -> lista_strings SEPARADOR NUM','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',45),
+  ('lista_strings -> lista_strings SEPARADOR STRING','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',46),
+  ('E -> E + E','E',3,'p_expr_op','EscreveGrammar.py',51),
+  ('E -> E - E','E',3,'p_expr_op','EscreveGrammar.py',52),
+  ('E -> E * E','E',3,'p_expr_op','EscreveGrammar.py',53),
+  ('lista_strings -> STRING','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',65),
+  ('lista_strings -> NUM','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',66),
+  ('lista_strings -> E','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',67),
+  ('E -> - E','E',2,'p_expr_sinalmenos','EscreveGrammar.py',71),
+  ('E -> ( E )','E',3,'p_expr_pare','EscreveGrammar.py',75),
+  ('E -> NUM','E',1,'p_expr_num','EscreveGrammar.py',81),
+  ('E -> VARID','E',1,'p_expr_var','EscreveGrammar.py',85),
+  ('initial -> PARA VARID EM RANGE FAZER INST FIMPARA FIM','initial',8,'p_ciclos','EscreveGrammar.py',95),
+  ('INST -> initial','INST',1,'p_inst','EscreveGrammar.py',112),
+  ('declare_var -> VAR VARID FIM','declare_var',3,'p_create_var','EscreveGrammar.py',116),
+  ('assign -> VAR VARID = E FIM','assign',5,'p_assign_var','EscreveGrammar.py',121),
 ]
