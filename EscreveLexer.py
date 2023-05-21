@@ -30,6 +30,7 @@ class EscreveLexer:
 
     def t_NUM(self, t):
         r'[0-9]+'
+        t.value = int (t.value)
         return t
 
     def t_FIM(self, t):
@@ -39,7 +40,7 @@ class EscreveLexer:
     def t_SEPARADOR(self, t):
         r','
         return t
-
+    
     def build(self, **kwargs):
         self.lexer = plex.lex(module=self, **kwargs)
 
