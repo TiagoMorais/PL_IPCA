@@ -1,3 +1,4 @@
+import logging
 from EscreveLexer import EscreveLexer
 import ply.yacc as pyacc
 import re
@@ -31,21 +32,12 @@ class EscreveGrammar:
         """ initial : comando
                     | assign
                     | declare_var"""
-        print(EscreveGrammar.symbols)
+        p[0]=p[1]
     
     def p_comando_escreve(self, p):
         """ comando : ESCREVE lista_strings FIM"""
         for t in p[2]:
             print(t)
-
-
-
-    def p_lista_strings_multiple(self,p):
-        """lista_strings : lista_strings SEPARADOR E
-                         | lista_strings SEPARADOR NUM
-                         | lista_strings SEPARADOR STRING"""
-
-        p[0] = p[1] + [p[3]]
 
     def p_expr_op(self, p):
         """ E : E '+' E  
@@ -60,12 +52,6 @@ class EscreveGrammar:
         else: 
             print(f"operador '{p[2]}' desconhecido ") # análise léxica garante que não acontecerá
         print(p[0])
-
-    def p_lista_strings_single(self,p):
-        """lista_strings : STRING
-                         | NUM
-                         | E"""
-        p[0] = [p[1]]
 
     def p_expr_sinalmenos(self, p): 
         " E : '-' E   %prec simetrico "
@@ -91,10 +77,24 @@ class EscreveGrammar:
             print(EscreveGrammar.symbols)
             raise Exception(f"error: '{p[1]}' undeclared (first use in this function)")
 
+    def p_lista_strings_multiple(self,p):
+        """lista_strings : lista_strings SEPARADOR E
+                         | lista_strings SEPARADOR NUM
+                         | lista_strings SEPARADOR STRING"""
+        p[0] = p[1] + [p[3]]
+
+    def p_lista_strings_single(self,p):
+        """lista_strings : STRING
+                         | NUM
+                         | E"""
+        p[0] = [p[1]]
+
+    
+
     def p_ciclos(self,p):
         """ initial : PARA VARID EM RANGE FAZER INST FIMPARA FIM """
         for x in p:
-            print(x)
+            print(x) 
         # Expressão regular para encontrar os inteiros dentro dos colchetes
         pattern = r'\[(\d+)\.\.(\d+)\]'
 
@@ -108,10 +108,20 @@ class EscreveGrammar:
         else :
             raise Exception(f"error: range invalid syntax")
         EscreveGrammar.symbols[p[2]]=inicio
-        
+
     def p_inst(self,p):
         """ INST : initial """
+        p[0]=p[1]
 
+    # def p_insts(self,p):
+    #     """ INSTS : INSTS INST  """
+        
+    # def p_inst(self,p):
+    #     """ INSTS : INST """
+        
+    # def p_inst_single(self,p):
+    #     """ INST : initial """
+    
     #ASSIGN 
     def p_create_var(self, p):
         """ declare_var : VAR VARID FIM"""
