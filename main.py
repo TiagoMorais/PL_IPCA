@@ -12,7 +12,7 @@ exemplos = [ # exemplos a avaliar de forma independente...
             # r'VAR h = 1+5; ',
             # r'VAR y = 10 * (h - 1) ; ',
             # r'VAR z = -1 ; ',
-            r'PARA i EM [10..20] FAZER VAR x=1; FIMPARA ;'
+            r'PARA i EM [10..20] FAZER VAR x=3; VAR y=2; VAR z=4; VAR a=5; FIMPARA ;'
             ]
 
 for frase in exemplos:

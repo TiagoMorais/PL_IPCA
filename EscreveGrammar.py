@@ -28,6 +28,20 @@ class EscreveGrammar:
         self.lexer.input(string)
         return self.yacc.parse(lexer=self.lexer.lexer)
 
+    def p_block(self, p):
+        """ block : instruction block"""
+        p[0]=dict(op='instruction',args= [p[1], p[2]] )
+
+    def p_block_end(self, p):
+        """ block : instruction"""
+        p[0]=dict(op='instruction',args= [p[1]] )
+
+    def p_instruction(self, p):
+        """ instruction : assign 
+                        | declare_var"""
+        p[0]=dict(op='instruction',args= [p[1]] )
+
+
     def p_initial(self, p):
         """ initial : comando
                     | assign
@@ -92,7 +106,7 @@ class EscreveGrammar:
     
 
     def p_ciclos(self,p):
-        """ initial : PARA VARID EM RANGE FAZER INST FIMPARA FIM """
+        """ instruction : PARA VARID EM RANGE FAZER block FIMPARA FIM """
         for x in p:
             print(x) 
         # Expressão regular para encontrar os inteiros dentro dos colchetes
@@ -109,9 +123,14 @@ class EscreveGrammar:
             raise Exception(f"error: range invalid syntax")
         EscreveGrammar.symbols[p[2]]=inicio
 
-    def p_inst(self,p):
+    def p_inst_block(self,p):
+        """ INST : INST initial """
+        p[0]=p[1]
+
+    def p_inst_initial(self,p):
         """ INST : initial """
         p[0]=p[1]
+
 
     # def p_insts(self,p):
     #     """ INSTS : INSTS INST  """
