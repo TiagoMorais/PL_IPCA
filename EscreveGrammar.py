@@ -27,10 +27,15 @@ class EscreveGrammar:
     def parse(self, string):
         self.lexer.input(string)
         return self.yacc.parse(lexer=self.lexer.lexer)
+    def p_init(self,p):
+        """ init : block"""
+        print('------')
+        print(p[1])
 
     def p_block(self, p):
         """ block : instruction block"""
         p[0]=dict(op='instruction',args= [p[1], p[2]] )
+
 
     def p_block_end(self, p):
         """ block : instruction"""
@@ -88,7 +93,7 @@ class EscreveGrammar:
         if p[1] in EscreveGrammar.symbols:
             p[0]= EscreveGrammar.symbols[ p[1] ] 
         else:
-            print(EscreveGrammar.symbols)
+            #print(EscreveGrammar.symbols)
             raise Exception(f"error: '{p[1]}' undeclared (first use in this function)")
 
     def p_lista_strings_multiple(self,p):
@@ -107,21 +112,8 @@ class EscreveGrammar:
 
     def p_ciclos(self,p):
         """ instruction : PARA VARID EM RANGE FAZER block FIMPARA FIM """
-        for x in p:
-            print(x) 
-        # Expressão regular para encontrar os inteiros dentro dos colchetes
-        pattern = r'\[(\d+)\.\.(\d+)\]'
-
-        # Aplica a expressão regular na string
-        matches = re.search(pattern, p[4])
-        if matches:
-        # Obtém os dois inteiros encontrados
-            inicio = int(matches.group(1))
-            fim = int(matches.group(2))
-            print(inicio,fim,p[6])
-        else :
-            raise Exception(f"error: range invalid syntax")
-        EscreveGrammar.symbols[p[2]]=inicio
+        p[0]=dict(op='loop', args=[p[4],p[6]])
+        
 
     def p_inst_block(self,p):
         """ INST : INST initial """
@@ -145,12 +137,12 @@ class EscreveGrammar:
     def p_create_var(self, p):
         """ declare_var : VAR VARID FIM"""
         EscreveGrammar.symbols[ p[2] ]=None    
-        print(f"info: variável '{p[2]}' declarada")
+        #print(f"info: variável '{p[2]}' declarada")
 
     def p_assign_var(self, p):
         """ assign : VAR VARID '=' E FIM"""
-        EscreveGrammar.symbols[ p[2] ]= p[4]    
-        print(f"info: variável '{p[2]}' fica com o valor {p[4]}")
+        #EscreveGrammar.symbols[ p[2] ]= p[4]    
+        #print(f"info: variável '{p[2]}' fica com o valor {p[4]}")
         p[0]=dict(op='assign',args= [ p[2] , p[4]] )
     #FIM ASSIGN
 

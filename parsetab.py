@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "right=left+-left*rightsimetricoEM ESCREVE FAZER FIM FIMPARA NUM PARA RANGE SEPARADOR STRING VAR VARID block : instruction block block : instruction instruction : assign \n                        | declare_var initial : comando\n                    | assign\n                    | declare_var comando : ESCREVE lista_strings FIM E : E '+' E  \n                | E '-' E \n                | E '*' E       E : '-' E   %prec simetrico  E : '(' E ')'  E :  NUM   E :  VARID  lista_strings : lista_strings SEPARADOR E\n                         | lista_strings SEPARADOR NUM\n                         | lista_strings SEPARADOR STRINGlista_strings : STRING\n                         | NUM\n                         | E instruction : PARA VARID EM RANGE FAZER block FIMPARA FIM  INST : INST initial  INST : initial  declare_var : VAR VARID FIM assign : VAR VARID '=' E FIM"
+_lr_signature = "right=left+-left*rightsimetricoEM ESCREVE FAZER FIM FIMPARA NUM PARA RANGE SEPARADOR STRING VAR VARID init : block block : instruction block block : instruction instruction : assign \n                        | declare_var initial : comando\n                    | assign\n                    | declare_var comando : ESCREVE lista_strings FIM E : E '+' E  \n                | E '-' E \n                | E '*' E       E : '-' E   %prec simetrico  E : '(' E ')'  E :  NUM   E :  VARID  lista_strings : lista_strings SEPARADOR E\n                         | lista_strings SEPARADOR NUM\n                         | lista_strings SEPARADOR STRINGlista_strings : STRING\n                         | NUM\n                         | E instruction : PARA VARID EM RANGE FAZER block FIMPARA FIM  INST : INST initial  INST : initial  declare_var : VAR VARID FIM assign : VAR VARID '=' E FIM"
     
-_lr_action_items = {'PARA':([0,2,3,4,12,19,20,32,],[5,5,-3,-4,-25,5,-26,-22,]),'VAR':([0,2,3,4,12,19,20,32,],[6,6,-3,-4,-25,6,-26,-22,]),'$end':([1,2,3,4,7,12,20,32,],[0,-2,-3,-4,-1,-25,-26,-22,]),'FIMPARA':([2,3,4,7,12,20,26,32,],[-2,-3,-4,-1,-25,-26,31,-22,]),'VARID':([5,6,11,16,17,21,22,23,],[8,9,14,14,14,14,14,14,]),'EM':([8,],[10,]),'=':([9,],[11,]),'FIM':([9,14,15,18,24,27,28,29,30,31,],[12,-15,20,-14,-12,-9,-10,-11,-13,32,]),'RANGE':([10,],[13,]),'-':([11,14,15,16,17,18,21,22,23,24,25,27,28,29,30,],[16,-15,22,16,16,-14,16,16,16,-12,22,-9,-10,-11,-13,]),'(':([11,16,17,21,22,23,],[17,17,17,17,17,17,]),'NUM':([11,16,17,21,22,23,],[18,18,18,18,18,18,]),'FAZER':([13,],[19,]),'+':([14,15,18,24,25,27,28,29,30,],[-15,21,-14,-12,21,-9,-10,-11,-13,]),'*':([14,15,18,24,25,27,28,29,30,],[-15,23,-14,-12,23,23,23,-11,-13,]),')':([14,18,24,25,27,28,29,30,],[-15,-14,-12,30,-9,-10,-11,-13,]),}
+_lr_action_items = {'PARA':([0,3,4,5,13,20,21,33,],[6,6,-4,-5,-26,6,-27,-23,]),'VAR':([0,3,4,5,13,20,21,33,],[7,7,-4,-5,-26,7,-27,-23,]),'$end':([1,2,3,4,5,8,13,21,33,],[0,-1,-3,-4,-5,-2,-26,-27,-23,]),'FIMPARA':([3,4,5,8,13,21,27,33,],[-3,-4,-5,-2,-26,-27,32,-23,]),'VARID':([6,7,12,17,18,22,23,24,],[9,10,15,15,15,15,15,15,]),'EM':([9,],[11,]),'=':([10,],[12,]),'FIM':([10,15,16,19,25,28,29,30,31,32,],[13,-16,21,-15,-13,-10,-11,-12,-14,33,]),'RANGE':([11,],[14,]),'-':([12,15,16,17,18,19,22,23,24,25,26,28,29,30,31,],[17,-16,23,17,17,-15,17,17,17,-13,23,-10,-11,-12,-14,]),'(':([12,17,18,22,23,24,],[18,18,18,18,18,18,]),'NUM':([12,17,18,22,23,24,],[19,19,19,19,19,19,]),'FAZER':([14,],[20,]),'+':([15,16,19,25,26,28,29,30,31,],[-16,22,-15,-13,22,-10,-11,-12,-14,]),'*':([15,16,19,25,26,28,29,30,31,],[-16,24,-15,-13,24,24,24,-12,-14,]),')':([15,19,25,26,28,29,30,31,],[-16,-15,-13,31,-10,-11,-12,-14,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'block':([0,2,19,],[1,7,26,]),'instruction':([0,2,19,],[2,2,2,]),'assign':([0,2,19,],[3,3,3,]),'declare_var':([0,2,19,],[4,4,4,]),'E':([11,16,17,21,22,23,],[15,24,25,27,28,29,]),}
+_lr_goto_items = {'init':([0,],[1,]),'block':([0,3,20,],[2,8,27,]),'instruction':([0,3,20,],[3,3,3,]),'assign':([0,3,20,],[4,4,4,]),'declare_var':([0,3,20,],[5,5,5,]),'E':([12,17,18,22,23,24,],[16,25,26,28,29,30,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,31 +26,32 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> block","S'",1,None,None,None),
-  ('block -> instruction block','block',2,'p_block','EscreveGrammar.py',32),
-  ('block -> instruction','block',1,'p_block_end','EscreveGrammar.py',36),
-  ('instruction -> assign','instruction',1,'p_instruction','EscreveGrammar.py',40),
-  ('instruction -> declare_var','instruction',1,'p_instruction','EscreveGrammar.py',41),
-  ('initial -> comando','initial',1,'p_initial','EscreveGrammar.py',46),
-  ('initial -> assign','initial',1,'p_initial','EscreveGrammar.py',47),
-  ('initial -> declare_var','initial',1,'p_initial','EscreveGrammar.py',48),
-  ('comando -> ESCREVE lista_strings FIM','comando',3,'p_comando_escreve','EscreveGrammar.py',52),
-  ('E -> E + E','E',3,'p_expr_op','EscreveGrammar.py',57),
-  ('E -> E - E','E',3,'p_expr_op','EscreveGrammar.py',58),
-  ('E -> E * E','E',3,'p_expr_op','EscreveGrammar.py',59),
-  ('E -> - E','E',2,'p_expr_sinalmenos','EscreveGrammar.py',71),
-  ('E -> ( E )','E',3,'p_expr_pare','EscreveGrammar.py',75),
-  ('E -> NUM','E',1,'p_expr_num','EscreveGrammar.py',81),
-  ('E -> VARID','E',1,'p_expr_var','EscreveGrammar.py',85),
-  ('lista_strings -> lista_strings SEPARADOR E','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',95),
-  ('lista_strings -> lista_strings SEPARADOR NUM','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',96),
-  ('lista_strings -> lista_strings SEPARADOR STRING','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',97),
-  ('lista_strings -> STRING','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',101),
-  ('lista_strings -> NUM','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',102),
-  ('lista_strings -> E','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',103),
-  ('instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM','instruction',8,'p_ciclos','EscreveGrammar.py',109),
-  ('INST -> INST initial','INST',2,'p_inst_block','EscreveGrammar.py',127),
-  ('INST -> initial','INST',1,'p_inst_initial','EscreveGrammar.py',131),
-  ('declare_var -> VAR VARID FIM','declare_var',3,'p_create_var','EscreveGrammar.py',146),
-  ('assign -> VAR VARID = E FIM','assign',5,'p_assign_var','EscreveGrammar.py',151),
+  ("S' -> init","S'",1,None,None,None),
+  ('init -> block','init',1,'p_init','EscreveGrammar.py',31),
+  ('block -> instruction block','block',2,'p_block','EscreveGrammar.py',36),
+  ('block -> instruction','block',1,'p_block_end','EscreveGrammar.py',41),
+  ('instruction -> assign','instruction',1,'p_instruction','EscreveGrammar.py',45),
+  ('instruction -> declare_var','instruction',1,'p_instruction','EscreveGrammar.py',46),
+  ('initial -> comando','initial',1,'p_initial','EscreveGrammar.py',51),
+  ('initial -> assign','initial',1,'p_initial','EscreveGrammar.py',52),
+  ('initial -> declare_var','initial',1,'p_initial','EscreveGrammar.py',53),
+  ('comando -> ESCREVE lista_strings FIM','comando',3,'p_comando_escreve','EscreveGrammar.py',57),
+  ('E -> E + E','E',3,'p_expr_op','EscreveGrammar.py',62),
+  ('E -> E - E','E',3,'p_expr_op','EscreveGrammar.py',63),
+  ('E -> E * E','E',3,'p_expr_op','EscreveGrammar.py',64),
+  ('E -> - E','E',2,'p_expr_sinalmenos','EscreveGrammar.py',76),
+  ('E -> ( E )','E',3,'p_expr_pare','EscreveGrammar.py',80),
+  ('E -> NUM','E',1,'p_expr_num','EscreveGrammar.py',86),
+  ('E -> VARID','E',1,'p_expr_var','EscreveGrammar.py',90),
+  ('lista_strings -> lista_strings SEPARADOR E','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',100),
+  ('lista_strings -> lista_strings SEPARADOR NUM','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',101),
+  ('lista_strings -> lista_strings SEPARADOR STRING','lista_strings',3,'p_lista_strings_multiple','EscreveGrammar.py',102),
+  ('lista_strings -> STRING','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',106),
+  ('lista_strings -> NUM','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',107),
+  ('lista_strings -> E','lista_strings',1,'p_lista_strings_single','EscreveGrammar.py',108),
+  ('instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM','instruction',8,'p_ciclos','EscreveGrammar.py',114),
+  ('INST -> INST initial','INST',2,'p_inst_block','EscreveGrammar.py',119),
+  ('INST -> initial','INST',1,'p_inst_initial','EscreveGrammar.py',123),
+  ('declare_var -> VAR VARID FIM','declare_var',3,'p_create_var','EscreveGrammar.py',138),
+  ('assign -> VAR VARID = E FIM','assign',5,'p_assign_var','EscreveGrammar.py',143),
 ]
