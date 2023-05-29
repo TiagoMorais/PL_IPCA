@@ -29,6 +29,10 @@ class EscreveGrammar:
     def parse(self, string):
         self.lexer.input(string)
         return self.yacc.parse(lexer=self.lexer.lexer)
+    def p_init(self,p):
+        """ init : block"""
+        print('------')
+        print(p[1])
 
     def p_init(self, p):
         """ init : block"""
@@ -40,6 +44,7 @@ class EscreveGrammar:
         block_list: list = p[1].args
         block_list.append(p[2])
         p[0] = TreeNode(op='block', args=block_list)
+
 
     def p_block_end(self, p):
         """ block : instruction"""
