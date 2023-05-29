@@ -1,16 +1,20 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    SEPARADOR
+
 Grammar
 
-Rule 0     S' -> block
-Rule 1     block -> instruction block
-Rule 2     block -> instruction
-Rule 3     instruction -> assign
-Rule 4     instruction -> declare_var
-Rule 5     initial -> comando
-Rule 6     initial -> assign
-Rule 7     initial -> declare_var
-Rule 8     comando -> ESCREVE lista_strings FIM
+Rule 0     S' -> init
+Rule 1     init -> block
+Rule 2     block -> block instruction
+Rule 3     block -> instruction
+Rule 4     instruction -> assign
+Rule 5     instruction -> declare_var
+Rule 6     instruction -> print
+Rule 7     print -> ESCREVE E FIM
+Rule 8     print -> ESCREVE STRING FIM
 Rule 9     E -> E + E
 Rule 10    E -> E - E
 Rule 11    E -> E * E
@@ -18,17 +22,9 @@ Rule 12    E -> - E
 Rule 13    E -> ( E )
 Rule 14    E -> NUM
 Rule 15    E -> VARID
-Rule 16    lista_strings -> lista_strings SEPARADOR E
-Rule 17    lista_strings -> lista_strings SEPARADOR NUM
-Rule 18    lista_strings -> lista_strings SEPARADOR STRING
-Rule 19    lista_strings -> STRING
-Rule 20    lista_strings -> NUM
-Rule 21    lista_strings -> E
-Rule 22    instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM
-Rule 23    INST -> INST initial
-Rule 24    INST -> initial
-Rule 25    declare_var -> VAR VARID FIM
-Rule 26    assign -> VAR VARID = E FIM
+Rule 16    instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM
+Rule 17    declare_var -> VAR VARID FIM
+Rule 18    assign -> VAR VARID = E FIM
 
 Terminals, with rules where they appear
 
@@ -37,151 +33,151 @@ Terminals, with rules where they appear
 *                    : 11
 +                    : 9
 -                    : 10 12
-=                    : 26
-EM                   : 22
-ESCREVE              : 8
-FAZER                : 22
-FIM                  : 8 22 25 26
-FIMPARA              : 22
-NUM                  : 14 17 20
-PARA                 : 22
-RANGE                : 22
-SEPARADOR            : 16 17 18
-STRING               : 18 19
-VAR                  : 25 26
-VARID                : 15 22 25 26
+=                    : 18
+EM                   : 16
+ESCREVE              : 7 8
+FAZER                : 16
+FIM                  : 7 8 16 17 18
+FIMPARA              : 16
+NUM                  : 14
+PARA                 : 16
+RANGE                : 16
+SEPARADOR            : 
+STRING               : 8
+VAR                  : 17 18
+VARID                : 15 16 17 18
 error                : 
 
 Nonterminals, with rules where they appear
 
-E                    : 9 9 10 10 11 11 12 13 16 21 26
-INST                 : 23
-assign               : 3 6
-block                : 1 22 0
-comando              : 5
-declare_var          : 4 7
-initial              : 23 24
-instruction          : 1 2
-lista_strings        : 8 16 17 18
+E                    : 7 9 9 10 10 11 11 12 13 18
+assign               : 4
+block                : 1 2 16
+declare_var          : 5
+init                 : 0
+instruction          : 2 3
+print                : 6
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . block
-    (1) block -> . instruction block
-    (2) block -> . instruction
-    (3) instruction -> . assign
-    (4) instruction -> . declare_var
-    (22) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
-    (26) assign -> . VAR VARID = E FIM
-    (25) declare_var -> . VAR VARID FIM
+    (0) S' -> . init
+    (1) init -> . block
+    (2) block -> . block instruction
+    (3) block -> . instruction
+    (4) instruction -> . assign
+    (5) instruction -> . declare_var
+    (6) instruction -> . print
+    (16) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
+    (18) assign -> . VAR VARID = E FIM
+    (17) declare_var -> . VAR VARID FIM
+    (7) print -> . ESCREVE E FIM
+    (8) print -> . ESCREVE STRING FIM
 
-    PARA            shift and go to state 5
-    VAR             shift and go to state 6
+    PARA            shift and go to state 7
+    VAR             shift and go to state 8
+    ESCREVE         shift and go to state 9
 
-    block                          shift and go to state 1
-    instruction                    shift and go to state 2
-    assign                         shift and go to state 3
-    declare_var                    shift and go to state 4
+    init                           shift and go to state 1
+    block                          shift and go to state 2
+    instruction                    shift and go to state 3
+    assign                         shift and go to state 4
+    declare_var                    shift and go to state 5
+    print                          shift and go to state 6
 
 state 1
 
-    (0) S' -> block .
+    (0) S' -> init .
 
 
 
 state 2
 
-    (1) block -> instruction . block
-    (2) block -> instruction .
-    (1) block -> . instruction block
-    (2) block -> . instruction
-    (3) instruction -> . assign
-    (4) instruction -> . declare_var
-    (22) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
-    (26) assign -> . VAR VARID = E FIM
-    (25) declare_var -> . VAR VARID FIM
+    (1) init -> block .
+    (2) block -> block . instruction
+    (4) instruction -> . assign
+    (5) instruction -> . declare_var
+    (6) instruction -> . print
+    (16) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
+    (18) assign -> . VAR VARID = E FIM
+    (17) declare_var -> . VAR VARID FIM
+    (7) print -> . ESCREVE E FIM
+    (8) print -> . ESCREVE STRING FIM
 
-    $end            reduce using rule 2 (block -> instruction .)
-    FIMPARA         reduce using rule 2 (block -> instruction .)
-    PARA            shift and go to state 5
-    VAR             shift and go to state 6
+    $end            reduce using rule 1 (init -> block .)
+    PARA            shift and go to state 7
+    VAR             shift and go to state 8
+    ESCREVE         shift and go to state 9
 
-    instruction                    shift and go to state 2
-    block                          shift and go to state 7
-    assign                         shift and go to state 3
-    declare_var                    shift and go to state 4
+    instruction                    shift and go to state 10
+    assign                         shift and go to state 4
+    declare_var                    shift and go to state 5
+    print                          shift and go to state 6
 
 state 3
 
-    (3) instruction -> assign .
+    (3) block -> instruction .
 
-    PARA            reduce using rule 3 (instruction -> assign .)
-    VAR             reduce using rule 3 (instruction -> assign .)
-    $end            reduce using rule 3 (instruction -> assign .)
-    FIMPARA         reduce using rule 3 (instruction -> assign .)
+    PARA            reduce using rule 3 (block -> instruction .)
+    VAR             reduce using rule 3 (block -> instruction .)
+    ESCREVE         reduce using rule 3 (block -> instruction .)
+    $end            reduce using rule 3 (block -> instruction .)
+    FIMPARA         reduce using rule 3 (block -> instruction .)
 
 
 state 4
 
-    (4) instruction -> declare_var .
+    (4) instruction -> assign .
 
-    PARA            reduce using rule 4 (instruction -> declare_var .)
-    VAR             reduce using rule 4 (instruction -> declare_var .)
-    $end            reduce using rule 4 (instruction -> declare_var .)
-    FIMPARA         reduce using rule 4 (instruction -> declare_var .)
+    PARA            reduce using rule 4 (instruction -> assign .)
+    VAR             reduce using rule 4 (instruction -> assign .)
+    ESCREVE         reduce using rule 4 (instruction -> assign .)
+    $end            reduce using rule 4 (instruction -> assign .)
+    FIMPARA         reduce using rule 4 (instruction -> assign .)
 
 
 state 5
 
-    (22) instruction -> PARA . VARID EM RANGE FAZER block FIMPARA FIM
+    (5) instruction -> declare_var .
 
-    VARID           shift and go to state 8
+    PARA            reduce using rule 5 (instruction -> declare_var .)
+    VAR             reduce using rule 5 (instruction -> declare_var .)
+    ESCREVE         reduce using rule 5 (instruction -> declare_var .)
+    $end            reduce using rule 5 (instruction -> declare_var .)
+    FIMPARA         reduce using rule 5 (instruction -> declare_var .)
 
 
 state 6
 
-    (26) assign -> VAR . VARID = E FIM
-    (25) declare_var -> VAR . VARID FIM
+    (6) instruction -> print .
 
-    VARID           shift and go to state 9
+    PARA            reduce using rule 6 (instruction -> print .)
+    VAR             reduce using rule 6 (instruction -> print .)
+    ESCREVE         reduce using rule 6 (instruction -> print .)
+    $end            reduce using rule 6 (instruction -> print .)
+    FIMPARA         reduce using rule 6 (instruction -> print .)
 
 
 state 7
 
-    (1) block -> instruction block .
+    (16) instruction -> PARA . VARID EM RANGE FAZER block FIMPARA FIM
 
-    $end            reduce using rule 1 (block -> instruction block .)
-    FIMPARA         reduce using rule 1 (block -> instruction block .)
+    VARID           shift and go to state 11
 
 
 state 8
 
-    (22) instruction -> PARA VARID . EM RANGE FAZER block FIMPARA FIM
+    (18) assign -> VAR . VARID = E FIM
+    (17) declare_var -> VAR . VARID FIM
 
-    EM              shift and go to state 10
+    VARID           shift and go to state 12
 
 
 state 9
 
-    (26) assign -> VAR VARID . = E FIM
-    (25) declare_var -> VAR VARID . FIM
-
-    =               shift and go to state 11
-    FIM             shift and go to state 12
-
-
-state 10
-
-    (22) instruction -> PARA VARID EM . RANGE FAZER block FIMPARA FIM
-
-    RANGE           shift and go to state 13
-
-
-state 11
-
-    (26) assign -> VAR VARID = . E FIM
+    (7) print -> ESCREVE . E FIM
+    (8) print -> ESCREVE . STRING FIM
     (9) E -> . E + E
     (10) E -> . E - E
     (11) E -> . E * E
@@ -190,55 +186,62 @@ state 11
     (14) E -> . NUM
     (15) E -> . VARID
 
-    -               shift and go to state 16
-    (               shift and go to state 17
-    NUM             shift and go to state 18
-    VARID           shift and go to state 14
+    STRING          shift and go to state 14
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
-    E                              shift and go to state 15
+    E                              shift and go to state 13
+
+state 10
+
+    (2) block -> block instruction .
+
+    PARA            reduce using rule 2 (block -> block instruction .)
+    VAR             reduce using rule 2 (block -> block instruction .)
+    ESCREVE         reduce using rule 2 (block -> block instruction .)
+    $end            reduce using rule 2 (block -> block instruction .)
+    FIMPARA         reduce using rule 2 (block -> block instruction .)
+
+
+state 11
+
+    (16) instruction -> PARA VARID . EM RANGE FAZER block FIMPARA FIM
+
+    EM              shift and go to state 19
+
 
 state 12
 
-    (25) declare_var -> VAR VARID FIM .
+    (18) assign -> VAR VARID . = E FIM
+    (17) declare_var -> VAR VARID . FIM
 
-    PARA            reduce using rule 25 (declare_var -> VAR VARID FIM .)
-    VAR             reduce using rule 25 (declare_var -> VAR VARID FIM .)
-    $end            reduce using rule 25 (declare_var -> VAR VARID FIM .)
-    FIMPARA         reduce using rule 25 (declare_var -> VAR VARID FIM .)
+    =               shift and go to state 20
+    FIM             shift and go to state 21
 
 
 state 13
 
-    (22) instruction -> PARA VARID EM RANGE . FAZER block FIMPARA FIM
-
-    FAZER           shift and go to state 19
-
-
-state 14
-
-    (15) E -> VARID .
-
-    FIM             reduce using rule 15 (E -> VARID .)
-    +               reduce using rule 15 (E -> VARID .)
-    -               reduce using rule 15 (E -> VARID .)
-    *               reduce using rule 15 (E -> VARID .)
-    )               reduce using rule 15 (E -> VARID .)
-
-
-state 15
-
-    (26) assign -> VAR VARID = E . FIM
+    (7) print -> ESCREVE E . FIM
     (9) E -> E . + E
     (10) E -> E . - E
     (11) E -> E . * E
 
-    FIM             shift and go to state 20
-    +               shift and go to state 21
-    -               shift and go to state 22
-    *               shift and go to state 23
+    FIM             shift and go to state 22
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
 
 
-state 16
+state 14
+
+    (8) print -> ESCREVE STRING . FIM
+
+    FIM             shift and go to state 26
+
+
+state 15
 
     (12) E -> - . E
     (9) E -> . E + E
@@ -249,14 +252,14 @@ state 16
     (14) E -> . NUM
     (15) E -> . VARID
 
-    -               shift and go to state 16
-    (               shift and go to state 17
-    NUM             shift and go to state 18
-    VARID           shift and go to state 14
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
-    E                              shift and go to state 24
+    E                              shift and go to state 27
 
-state 17
+state 16
 
     (13) E -> ( . E )
     (9) E -> . E + E
@@ -267,14 +270,14 @@ state 17
     (14) E -> . NUM
     (15) E -> . VARID
 
-    -               shift and go to state 16
-    (               shift and go to state 17
-    NUM             shift and go to state 18
-    VARID           shift and go to state 14
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
-    E                              shift and go to state 25
+    E                              shift and go to state 28
 
-state 18
+state 17
 
     (14) E -> NUM .
 
@@ -285,36 +288,65 @@ state 18
     )               reduce using rule 14 (E -> NUM .)
 
 
+state 18
+
+    (15) E -> VARID .
+
+    FIM             reduce using rule 15 (E -> VARID .)
+    +               reduce using rule 15 (E -> VARID .)
+    -               reduce using rule 15 (E -> VARID .)
+    *               reduce using rule 15 (E -> VARID .)
+    )               reduce using rule 15 (E -> VARID .)
+
+
 state 19
 
-    (22) instruction -> PARA VARID EM RANGE FAZER . block FIMPARA FIM
-    (1) block -> . instruction block
-    (2) block -> . instruction
-    (3) instruction -> . assign
-    (4) instruction -> . declare_var
-    (22) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
-    (26) assign -> . VAR VARID = E FIM
-    (25) declare_var -> . VAR VARID FIM
+    (16) instruction -> PARA VARID EM . RANGE FAZER block FIMPARA FIM
 
-    PARA            shift and go to state 5
-    VAR             shift and go to state 6
+    RANGE           shift and go to state 29
 
-    block                          shift and go to state 26
-    instruction                    shift and go to state 2
-    assign                         shift and go to state 3
-    declare_var                    shift and go to state 4
 
 state 20
 
-    (26) assign -> VAR VARID = E FIM .
+    (18) assign -> VAR VARID = . E FIM
+    (9) E -> . E + E
+    (10) E -> . E - E
+    (11) E -> . E * E
+    (12) E -> . - E
+    (13) E -> . ( E )
+    (14) E -> . NUM
+    (15) E -> . VARID
 
-    PARA            reduce using rule 26 (assign -> VAR VARID = E FIM .)
-    VAR             reduce using rule 26 (assign -> VAR VARID = E FIM .)
-    $end            reduce using rule 26 (assign -> VAR VARID = E FIM .)
-    FIMPARA         reduce using rule 26 (assign -> VAR VARID = E FIM .)
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
+    E                              shift and go to state 30
 
 state 21
+
+    (17) declare_var -> VAR VARID FIM .
+
+    PARA            reduce using rule 17 (declare_var -> VAR VARID FIM .)
+    VAR             reduce using rule 17 (declare_var -> VAR VARID FIM .)
+    ESCREVE         reduce using rule 17 (declare_var -> VAR VARID FIM .)
+    $end            reduce using rule 17 (declare_var -> VAR VARID FIM .)
+    FIMPARA         reduce using rule 17 (declare_var -> VAR VARID FIM .)
+
+
+state 22
+
+    (7) print -> ESCREVE E FIM .
+
+    PARA            reduce using rule 7 (print -> ESCREVE E FIM .)
+    VAR             reduce using rule 7 (print -> ESCREVE E FIM .)
+    ESCREVE         reduce using rule 7 (print -> ESCREVE E FIM .)
+    $end            reduce using rule 7 (print -> ESCREVE E FIM .)
+    FIMPARA         reduce using rule 7 (print -> ESCREVE E FIM .)
+
+
+state 23
 
     (9) E -> E + . E
     (9) E -> . E + E
@@ -325,14 +357,14 @@ state 21
     (14) E -> . NUM
     (15) E -> . VARID
 
-    -               shift and go to state 16
-    (               shift and go to state 17
-    NUM             shift and go to state 18
-    VARID           shift and go to state 14
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
-    E                              shift and go to state 27
+    E                              shift and go to state 31
 
-state 22
+state 24
 
     (10) E -> E - . E
     (9) E -> . E + E
@@ -343,14 +375,14 @@ state 22
     (14) E -> . NUM
     (15) E -> . VARID
 
-    -               shift and go to state 16
-    (               shift and go to state 17
-    NUM             shift and go to state 18
-    VARID           shift and go to state 14
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
-    E                              shift and go to state 28
+    E                              shift and go to state 32
 
-state 23
+state 25
 
     (11) E -> E * . E
     (9) E -> . E + E
@@ -361,14 +393,25 @@ state 23
     (14) E -> . NUM
     (15) E -> . VARID
 
-    -               shift and go to state 16
-    (               shift and go to state 17
-    NUM             shift and go to state 18
-    VARID           shift and go to state 14
+    -               shift and go to state 15
+    (               shift and go to state 16
+    NUM             shift and go to state 17
+    VARID           shift and go to state 18
 
-    E                              shift and go to state 29
+    E                              shift and go to state 33
 
-state 24
+state 26
+
+    (8) print -> ESCREVE STRING FIM .
+
+    PARA            reduce using rule 8 (print -> ESCREVE STRING FIM .)
+    VAR             reduce using rule 8 (print -> ESCREVE STRING FIM .)
+    ESCREVE         reduce using rule 8 (print -> ESCREVE STRING FIM .)
+    $end            reduce using rule 8 (print -> ESCREVE STRING FIM .)
+    FIMPARA         reduce using rule 8 (print -> ESCREVE STRING FIM .)
+
+
+state 27
 
     (12) E -> - E .
     (9) E -> E . + E
@@ -381,32 +424,45 @@ state 24
     *               reduce using rule 12 (E -> - E .)
     )               reduce using rule 12 (E -> - E .)
 
-  ! +               [ shift and go to state 21 ]
-  ! -               [ shift and go to state 22 ]
-  ! *               [ shift and go to state 23 ]
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! *               [ shift and go to state 25 ]
 
 
-state 25
+state 28
 
     (13) E -> ( E . )
     (9) E -> E . + E
     (10) E -> E . - E
     (11) E -> E . * E
 
-    )               shift and go to state 30
-    +               shift and go to state 21
-    -               shift and go to state 22
-    *               shift and go to state 23
+    )               shift and go to state 34
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
 
 
-state 26
+state 29
 
-    (22) instruction -> PARA VARID EM RANGE FAZER block . FIMPARA FIM
+    (16) instruction -> PARA VARID EM RANGE . FAZER block FIMPARA FIM
 
-    FIMPARA         shift and go to state 31
+    FAZER           shift and go to state 35
 
 
-state 27
+state 30
+
+    (18) assign -> VAR VARID = E . FIM
+    (9) E -> E . + E
+    (10) E -> E . - E
+    (11) E -> E . * E
+
+    FIM             shift and go to state 36
+    +               shift and go to state 23
+    -               shift and go to state 24
+    *               shift and go to state 25
+
+
+state 31
 
     (9) E -> E + E .
     (9) E -> E . + E
@@ -417,14 +473,14 @@ state 27
     +               reduce using rule 9 (E -> E + E .)
     -               reduce using rule 9 (E -> E + E .)
     )               reduce using rule 9 (E -> E + E .)
-    *               shift and go to state 23
+    *               shift and go to state 25
 
   ! *               [ reduce using rule 9 (E -> E + E .) ]
-  ! +               [ shift and go to state 21 ]
-  ! -               [ shift and go to state 22 ]
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
 
 
-state 28
+state 32
 
     (10) E -> E - E .
     (9) E -> E . + E
@@ -435,14 +491,14 @@ state 28
     +               reduce using rule 10 (E -> E - E .)
     -               reduce using rule 10 (E -> E - E .)
     )               reduce using rule 10 (E -> E - E .)
-    *               shift and go to state 23
+    *               shift and go to state 25
 
   ! *               [ reduce using rule 10 (E -> E - E .) ]
-  ! +               [ shift and go to state 21 ]
-  ! -               [ shift and go to state 22 ]
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
 
 
-state 29
+state 33
 
     (11) E -> E * E .
     (9) E -> E . + E
@@ -455,12 +511,12 @@ state 29
     *               reduce using rule 11 (E -> E * E .)
     )               reduce using rule 11 (E -> E * E .)
 
-  ! +               [ shift and go to state 21 ]
-  ! -               [ shift and go to state 22 ]
-  ! *               [ shift and go to state 23 ]
+  ! +               [ shift and go to state 23 ]
+  ! -               [ shift and go to state 24 ]
+  ! *               [ shift and go to state 25 ]
 
 
-state 30
+state 34
 
     (13) E -> ( E ) .
 
@@ -471,19 +527,78 @@ state 30
     )               reduce using rule 13 (E -> ( E ) .)
 
 
-state 31
+state 35
 
-    (22) instruction -> PARA VARID EM RANGE FAZER block FIMPARA . FIM
+    (16) instruction -> PARA VARID EM RANGE FAZER . block FIMPARA FIM
+    (2) block -> . block instruction
+    (3) block -> . instruction
+    (4) instruction -> . assign
+    (5) instruction -> . declare_var
+    (6) instruction -> . print
+    (16) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
+    (18) assign -> . VAR VARID = E FIM
+    (17) declare_var -> . VAR VARID FIM
+    (7) print -> . ESCREVE E FIM
+    (8) print -> . ESCREVE STRING FIM
 
-    FIM             shift and go to state 32
+    PARA            shift and go to state 7
+    VAR             shift and go to state 8
+    ESCREVE         shift and go to state 9
+
+    block                          shift and go to state 37
+    instruction                    shift and go to state 3
+    assign                         shift and go to state 4
+    declare_var                    shift and go to state 5
+    print                          shift and go to state 6
+
+state 36
+
+    (18) assign -> VAR VARID = E FIM .
+
+    PARA            reduce using rule 18 (assign -> VAR VARID = E FIM .)
+    VAR             reduce using rule 18 (assign -> VAR VARID = E FIM .)
+    ESCREVE         reduce using rule 18 (assign -> VAR VARID = E FIM .)
+    $end            reduce using rule 18 (assign -> VAR VARID = E FIM .)
+    FIMPARA         reduce using rule 18 (assign -> VAR VARID = E FIM .)
 
 
-state 32
+state 37
 
-    (22) instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .
+    (16) instruction -> PARA VARID EM RANGE FAZER block . FIMPARA FIM
+    (2) block -> block . instruction
+    (4) instruction -> . assign
+    (5) instruction -> . declare_var
+    (6) instruction -> . print
+    (16) instruction -> . PARA VARID EM RANGE FAZER block FIMPARA FIM
+    (18) assign -> . VAR VARID = E FIM
+    (17) declare_var -> . VAR VARID FIM
+    (7) print -> . ESCREVE E FIM
+    (8) print -> . ESCREVE STRING FIM
 
-    PARA            reduce using rule 22 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
-    VAR             reduce using rule 22 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
-    $end            reduce using rule 22 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
-    FIMPARA         reduce using rule 22 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
+    FIMPARA         shift and go to state 38
+    PARA            shift and go to state 7
+    VAR             shift and go to state 8
+    ESCREVE         shift and go to state 9
+
+    instruction                    shift and go to state 10
+    assign                         shift and go to state 4
+    declare_var                    shift and go to state 5
+    print                          shift and go to state 6
+
+state 38
+
+    (16) instruction -> PARA VARID EM RANGE FAZER block FIMPARA . FIM
+
+    FIM             shift and go to state 39
+
+
+state 39
+
+    (16) instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .
+
+    PARA            reduce using rule 16 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
+    VAR             reduce using rule 16 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
+    ESCREVE         reduce using rule 16 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
+    $end            reduce using rule 16 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
+    FIMPARA         reduce using rule 16 (instruction -> PARA VARID EM RANGE FAZER block FIMPARA FIM .)
 

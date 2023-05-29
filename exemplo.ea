@@ -1,0 +1,6 @@
+
+VAR i =0;
+PARA i EM [10..20] FAZER 
+    ESCREVE i; 
+    ESCREVE "bbb" ; 
+FIMPARA ;
