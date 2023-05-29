@@ -9,15 +9,15 @@ class Eval:
     symbols = {}
 
     operators = {
-        "+": lambda args: args[0] + args[1],
-        "-": lambda args: args[0] - args[1],
-        "*": lambda args: args[0] * args[1],
-        "block": lambda args: args,
-        "instruction": lambda args: args,
-        "assign": lambda args: Eval._attrib(args),
-        "print": lambda args: Eval._print(args),
-        "for_loop": lambda args: Eval._for_loop(args),
-        "var_lookup": lambda args: Eval._var_lookup(args),
+        "+": lambda args,ast: args[0] + args[1],
+        "-": lambda args,ast: args[0] - args[1],
+        "*": lambda args,ast: args[0] * args[1],
+        "block": lambda args, ast: args,
+        "instruction": lambda args, ast: args,
+        "assign": lambda args, ast: Eval._attrib(args),
+        "print": lambda args, ast: Eval._print(args),
+        "for_loop": lambda args, ast: Eval._for_loop(args,ast),
+        "var_lookup": lambda args, ast: Eval._var_lookup(args),
     }
 
     @staticmethod
@@ -39,9 +39,8 @@ class Eval:
         Eval.symbols[args[0]] = value
         return f'{args[0]} = {args[1]}'
     
-    def _for_loop(args):
-        print(args)
-        cycle = args.args[1]
+    def _for_loop(args,ast):
+        cycle = args[1]
         pattern = r'\[(\d+)\.\.(\d+)\]'
         matches = re.search(pattern, cycle)
         if matches:
@@ -52,8 +51,8 @@ class Eval:
             raise Exception(f"error: range invalid syntax")
         
         for i in range(inicio,fim):
-            Eval._attrib([args.args[0],i])
-            Eval._eval_operator(args.args[2])
+            Eval._attrib([args[0],i])
+            Eval._eval_operator(ast.args[2])
 
     
     @staticmethod
@@ -77,11 +76,7 @@ class Eval:
        
         if op in Eval.operators:
             func = Eval.operators[op]
-            if op is "for_loop":
-                return func(ast)
-            else:    
-                
-                return func(args)
+            return func(args,ast)
         else:
             raise Exception(f"{op} operation not found")
         

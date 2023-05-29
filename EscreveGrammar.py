@@ -142,9 +142,9 @@ class EscreveGrammar:
     # def p_inst_initial(self, p):
     #     """ INST : initial """
     #     p[0] = p[1]
-
     # def p_insts(self,p):
     #     """ INSTS : INSTS INST  """
+
 
     # def p_inst(self,p):
     #     """ INSTS : INST """

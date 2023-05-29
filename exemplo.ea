@@ -1,3 +1,9 @@
+VAR x = 1+1 ;
+ESCREVE x;
+VAR y = 4-2 ;
+VAR z = 3 ;
+ESCREVE 1+1 ;
+ESCREVE z ;
 
 VAR i =0;
 PARA i EM [10..20] FAZER 
