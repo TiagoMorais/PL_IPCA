@@ -41,11 +41,8 @@ if len(sys.argv) == 2:
         contents = file.read()
         try:
             ast_tree = lg.parse(contents)
-            print("---")
             pp.pprint(ast_tree)
-            print("---")
             Eval.evaluate(ast_tree)   
-            print("--------------------") 
         except Exception as e:
             print(e, file=sys.stderr)
 else:

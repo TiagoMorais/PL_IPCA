@@ -6,7 +6,31 @@ ESCREVE 1+1 ;
 ESCREVE z ;
 
 VAR i =0;
-PARA i EM [10..20] FAZER 
+VAR j =0;
+ESCREVE "i";
+ESCREVE i; 
+PARA i EM [10..13] FAZER 
+    ESCREVE "i";
     ESCREVE i; 
-    ESCREVE "bbb" ; 
+    PARA j EM [10..13] FAZER 
+        ESCREVE "dentro DO SEGUNDO FOR ";
+        ESCREVE i; 
+        ESCREVE "j";
+        ESCREVE j ; 
+    FIMPARA ;
 FIMPARA ;
+
+FUNC dobro(o)
+    VAR d = o*2;
+    ESCREVE d;
+    power(4,6);
+    RETURN d ;
+FIMFUNC
+
+FUNC power(r,t)
+    ESCREVE "ESCUTO ESCUTO ";
+    ESCREVE r;
+    ESCREVE t;
+FIMFUNC
+
+dobro(11);
